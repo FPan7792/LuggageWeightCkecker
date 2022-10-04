@@ -1,15 +1,19 @@
-import type { NextPage } from "next";
+import type { ReactElement } from "react";
+import Layout from "../components/Layout/Layout";
+import type { NextPageWithLayout } from "./_app";
 import HeadLayer from "../components/HeadLayer/HeadLayer";
-import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+const Page: NextPageWithLayout = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <HeadLayer />
-
-      <>Je suis le premier composant</>
+      <p>Bienvenue</p>
     </div>
   );
 };
 
-export default Home;
+Page.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>;
+};
+
+export default Page;

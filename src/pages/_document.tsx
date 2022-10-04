@@ -19,7 +19,7 @@ class MyDocument extends Document {
     return (
       <Html lang="fr">
         <Head>
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta
             name="description"
             content="Calculateur de poids de bagages en ligne"
