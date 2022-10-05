@@ -1,16 +1,17 @@
 import type { ReactElement } from "react";
-import Layout from "../components/Layout/Layout";
-import type { NextPageWithLayout } from "./_app";
-import HeadLayer from "../components/HeadLayer/HeadLayer";
+import Layout from "../../components/Layout/Layout";
+import type { NextPageWithLayout } from "../_app";
+import HeadLayer from "../../components/HeadLayer/HeadLayer";
 import Link from "next/link";
 
 const Page: NextPageWithLayout = () => {
   return (
     <div>
+      {/* !!!set title and props */}
       <HeadLayer />
-      <p>Bienvenue page HOME</p>
-      <Link href={"/report/test"}>
-        <button>Valider </button>
+      <p>Bienvenue page backpack</p>
+      <Link href={"/"}>
+        <button>retour</button>
       </Link>
     </div>
   );
