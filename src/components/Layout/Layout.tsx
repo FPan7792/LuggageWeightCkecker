@@ -6,11 +6,15 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="h-20 w-8 border-black border-2 border-solid bg-cyan-200 text-red-600  ">
-      <>
+    <div className=" border-gray-400 border-solid border-2 xl:flex flex-col h-screen ">
+      {/* header */}
+      <div className="flex flex-col justify-center items-center">
         <CompagnySelector />
-      </>
-      {children}
+      </div>
+      {/* body */}
+      <div className="flex-grow border-2 border-solid border-black">
+        {children}
+      </div>
     </div>
   );
 };
