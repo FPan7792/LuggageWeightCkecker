@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchDatasFromAPI = async (parsedUrl: string) => {
   try {
-    const { data, status } = await axios.get<API_Response>(parsedUrl);
+    const { data, status } = await axios.get<API_Datas>(parsedUrl);
 
     if (status === 200) {
       return data;

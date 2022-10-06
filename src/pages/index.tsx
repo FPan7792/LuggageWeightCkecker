@@ -1,22 +1,29 @@
 import type { ReactElement } from "react";
-import Layout from "../components/Layout/Layout";
 import type { NextPageWithLayout } from "./_app";
+
+import Layout from "../components/Layout/Layout";
 import HeadLayer from "../components/HeadLayer/HeadLayer";
 import Link from "next/link";
 
-import { fetchCarriers } from "../../utils/fetchers";
 import { useEffect } from "react";
+import useCarrierStore from "../store/Carriers/carriers_store";
 
 const Page: NextPageWithLayout = () => {
-  // console.log("DATAS", datas);
+  const { state, initializeStore } = useCarrierStore();
+  const { isLoading } = state;
 
   useEffect(() => {
+    // !!!!Rename and fetch
     const displayDatas = async () => {
-      const datas = await fetchCarriers();
-      console.log("DATAS", datas);
+      await initializeStore();
     };
     displayDatas();
   }, []);
+
+  if (isLoading) {
+    // !!!Impl loader
+    return <p>LOADING</p>;
+  }
 
   return (
     <div>
@@ -36,23 +43,12 @@ Page.getLayout = function getLayout(page: ReactElement) {
 export default Page;
 
 // This function gets called at build time
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  // const res = await fetch('https://.../posts')
-  // const posts = await res.json()
-
+export async function getServerSideProps() {
   // const datas = await fetchCarriers();
-
-  // console.log("DATAS", datas);
-  // console.log("PP", process.env.API_KEY);
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  // console.log("PE", process.env);
 
   return {
     props: {
-      // datas,
+      // test,
     },
   };
 }

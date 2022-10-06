@@ -10,6 +10,13 @@ type Carrier = {
   limit: number;
 };
 
+type Carrier_Store_States = {
+  title: string;
+  totalCount: number;
+  allCarriers: Carrier[];
+  isLoading: boolean;
+};
+
 // inventory
 type Datas_Inventory = {
   items: Inventory_Item[];

@@ -27,7 +27,7 @@ const DropDown = ({ visible }: { visible: boolean }) => {
       }
     >
       {datas.map((data, index) => (
-        <div className="">
+        <div key={index} className="">
           <label>
             Option {data}
             {/* <input type="radio" value="option1" checked={true} /> */}
