@@ -1,9 +1,17 @@
 import { useEffect } from "react";
+import useCarrierStore from "../../../store/Carriers/carriers_store";
 
-const DropDown = ({ visible }: { visible: boolean }) => {
+const DropDown = ({
+  visible,
+  datas,
+}: {
+  visible: boolean;
+  datas: Carrier_Store_States;
+}) => {
   // !!WIP
   //   datas for test setup
-  const datas = [1, 2, 3];
+  const { allCarriers, isLoading } = datas;
+  const { selectedCarrier, setSelectedCarrier } = useCarrierStore();
 
   //   ON CLICK OUTSIDE CLOSE MENU DPD
   //   useEffect(() => {
@@ -16,6 +24,9 @@ const DropDown = ({ visible }: { visible: boolean }) => {
   //         // function remove addlistener
   //     }
   //   })
+  useEffect(() => {}, [selectedCarrier]);
+
+  console.log("OUIIIII", selectedCarrier);
 
   return (
     <div
@@ -26,15 +37,29 @@ const DropDown = ({ visible }: { visible: boolean }) => {
           : " transition-all ease-out duration-1000 invisible"
       }
     >
-      {datas.map((data, index) => (
-        <div key={index} className="">
-          <label>
-            Option {data}
-            {/* <input type="radio" value="option1" checked={true} /> */}
-            <input type="radio" value="option1" />
-          </label>
-        </div>
-      ))}
+      {!isLoading &&
+        allCarriers.map((carrier, index) => (
+          <div
+            key={index}
+            className=""
+            onClick={() => setSelectedCarrier(carrier)}
+          >
+            <label>
+              {carrier.label}
+              {/* limit : {carrier.limit} */}
+              <input
+                type="radio"
+                value="option1"
+                checked={selectedCarrier === carrier}
+                onChange={(e) => {
+                  selectedCarrier !== carrier
+                    ? (e.target.checked = false)
+                    : true;
+                }}
+              />
+            </label>
+          </div>
+        ))}
     </div>
   );
 };

@@ -1,3 +1,5 @@
+declare module "uuid";
+
 // datas compagny object response from api
 type Datas_Carrier = {
   status: string;
@@ -13,8 +15,9 @@ type Carrier = {
 type Carrier_Store_States = {
   title: string;
   totalCount: number;
-  allCarriers: Carrier[];
+  allCarriers: Carrier_Mutable_Object[];
   isLoading: boolean;
+  mutable: boolean;
 };
 
 // inventory

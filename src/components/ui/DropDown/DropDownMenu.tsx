@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DropDown } from "./DropDown";
 
+import useCarrierStore from "../../../store/Carriers/carriers_store";
+
 type Props = {
-  // !!define datas
-  datas?: any;
   style?: TailwindCustomedStyle_Component;
 };
 
 // definir datas !!!
-const DropDownMenu = ({ datas, style }: Props) => {
+const DropDownMenu = ({ style }: Props) => {
   const [visible, setVisible] = useState(false);
+  const carriersState = useCarrierStore().state;
+
+  useEffect(() => {}, [carriersState]);
 
   return (
     <nav className={style || "h-[100px]"}>
-      <p onClick={() => setVisible(!visible)}>Airplanes</p>
-      <DropDown visible={visible} />
+      <p onClick={() => setVisible(!visible)}>{carriersState.title}</p>
+      <DropDown datas={carriersState} visible={visible} />
     </nav>
   );
 };

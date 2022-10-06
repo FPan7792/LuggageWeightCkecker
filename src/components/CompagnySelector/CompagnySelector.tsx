@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useCarrierStore from "../../store/Carriers/carriers_store";
 import { DropDownMenuBase } from "../ui/DropDown";
 
 type Props = {};
 
 export const CompagnySelector: React.FC<Props> = () => {
-  // const [test, setTest] = useState("Hello");
+  const { initializeStore } = useCarrierStore();
 
-  // const change = () => {
-  //   test === "Hello" ? setTest("Salut") : setTest("Hello");
-  // };
+  useEffect(() => {
+    // !!!!Rename and fetch
+    const displayDatas = async () => {
+      await initializeStore();
+    };
+    displayDatas();
+  }, []);
+
+  // console.log("SCARREIR", selectedCarrier);
 
   return (
     <div className=" border-2 border-black border-solid ">

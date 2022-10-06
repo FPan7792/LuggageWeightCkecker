@@ -5,20 +5,13 @@ import Layout from "../components/Layout/Layout";
 import HeadLayer from "../components/HeadLayer/HeadLayer";
 import Link from "next/link";
 
-import { useEffect } from "react";
 import useCarrierStore from "../store/Carriers/carriers_store";
 
 const Page: NextPageWithLayout = () => {
-  const { state, initializeStore } = useCarrierStore();
+  const { state } = useCarrierStore();
   const { isLoading } = state;
 
-  useEffect(() => {
-    // !!!!Rename and fetch
-    const displayDatas = async () => {
-      await initializeStore();
-    };
-    displayDatas();
-  }, []);
+  console.log("STATE", state);
 
   if (isLoading) {
     // !!!Impl loader
