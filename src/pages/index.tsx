@@ -7,52 +7,27 @@ import HeadLayer from "../components/HeadLayer/HeadLayer";
 import Link from "next/link";
 
 import useCarrierStore from "../store/Carriers/carriers_store";
-import useInventoryStore from "../store/Inventory/inventory_store";
+
+import { InventoryBase } from "../components/Inventory";
+import { BackPackBase } from "../components/BackPack";
 
 const Page: NextPageWithLayout = () => {
   // CARRIER STATES
   const { isLoading } = useCarrierStore().state;
 
-  // INVENTORY STATES
-  const {
-    initializeInventoryStore,
-    allInventoryItems,
-    inventory,
-    backPack,
-    manageInventoryItems,
-  } = useInventoryStore();
-  const isLoadingInventory = useInventoryStore().isLoading;
-
-  useEffect(() => {
-    const displayDatas = async () => {
-      await initializeInventoryStore();
-    };
-    displayDatas();
-  }, []);
-
-  useEffect(() => {
-    console.log("INV", inventory);
-    console.log("back", backPack);
-  });
-
-  if (isLoading || isLoadingInventory) {
+  if (isLoading) {
     // !!!Impl loader
     return <p>LOADING</p>;
   }
 
   return (
-    <div>
+    <div className="flex">
       <HeadLayer />
-      <Link href={"/report/test"}>
+      {/* <Link href={"/report/test"}>
         <button>Valider </button>
-      </Link>
-
-      {allInventoryItems.map((item) => (
-        <div key={item.id} onClick={() => manageInventoryItems(item)}>
-          <span>{item.label}</span>
-          <span>{item.status.added.toString()}</span>
-        </div>
-      ))}
+      </Link> */}
+      <InventoryBase />
+      <BackPackBase />
     </div>
   );
 };

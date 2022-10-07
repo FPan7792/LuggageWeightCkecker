@@ -4,7 +4,7 @@ import { DropDownMenuBase } from "../ui/DropDown";
 
 type Props = {};
 
-export const CompagnySelector: React.FC<Props> = () => {
+const CompagnySelector: React.FC<Props> = () => {
   const { initializeStore } = useCarrierStore();
 
   useEffect(() => {
