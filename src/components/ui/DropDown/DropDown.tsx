@@ -26,8 +26,6 @@ const DropDown = ({
   //   })
   useEffect(() => {}, [selectedCarrier]);
 
-  console.log("OUIIIII", selectedCarrier);
-
   return (
     <div
       className={

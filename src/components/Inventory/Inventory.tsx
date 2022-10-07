@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import useInventoryStore from "../../store/Inventory/inventory_store";
+import { InventoryItem } from "../InventoryItem";
 
-const Inventory = ({ style }: { style: string }) => {
+type Props = { style: string; Loader: JSX.Element };
+
+const Inventory = ({ style, Loader }: Props) => {
   // INVENTORY STATES
   const {
     initializeInventoryStore,
@@ -19,24 +22,30 @@ const Inventory = ({ style }: { style: string }) => {
     displayDatas();
   }, []);
 
-  useEffect(() => {
-    console.log("INV", inventory);
-    console.log("back", backPack);
-  });
-
-  if (isLoadingInventory) {
-    // !!!Impl loader
-    return <p>LOADING</p>;
-  }
+  //   useEffect(() => {
+  //     console.log("INV", inventory);
+  //     console.log("back", backPack);
+  //   });
 
   return (
-    <div className="w-[50%]">
-      {allInventoryItems.map((item) => (
-        <div key={item.id} onClick={() => manageInventoryItems(item)}>
-          <span>{item.label}</span>
-          <span>{item.status.added.toString()}</span>
+    <div className=" shadow rounded xl:w-[20%] xl:min-w-[320px] h-full ">
+      <h1 className="font-bold text-center text-xl border-b-2 border-b-solid py-3  ">
+        {inventory.title}
+      </h1>
+      {isLoadingInventory ? (
+        <div className=" xl:h-[400px] ">{Loader}</div>
+      ) : (
+        <div className="m-4">
+          {allInventoryItems.map((item) => (
+            <InventoryItem
+              item={item}
+              manageInventoryItems={manageInventoryItems}
+              intoComponent={"INVENTORY"}
+              text={"Add"}
+            />
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };
