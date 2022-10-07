@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import { useEffect } from "react";
 import type { NextPageWithLayout } from "./_app";
 
 import Layout from "../components/Layout/Layout";
@@ -6,14 +7,35 @@ import HeadLayer from "../components/HeadLayer/HeadLayer";
 import Link from "next/link";
 
 import useCarrierStore from "../store/Carriers/carriers_store";
+import useInventoryStore from "../store/Inventory/inventory_store";
 
 const Page: NextPageWithLayout = () => {
-  const { state } = useCarrierStore();
-  const { isLoading } = state;
+  // CARRIER STATES
+  const { isLoading } = useCarrierStore().state;
 
-  console.log("STATE", state);
+  // INVENTORY STATES
+  const {
+    initializeInventoryStore,
+    allInventoryItems,
+    inventory,
+    backPack,
+    manageInventoryItems,
+  } = useInventoryStore();
+  const isLoadingInventory = useInventoryStore().isLoading;
 
-  if (isLoading) {
+  useEffect(() => {
+    const displayDatas = async () => {
+      await initializeInventoryStore();
+    };
+    displayDatas();
+  }, []);
+
+  useEffect(() => {
+    console.log("INV", inventory);
+    console.log("back", backPack);
+  });
+
+  if (isLoading || isLoadingInventory) {
     // !!!Impl loader
     return <p>LOADING</p>;
   }
@@ -21,10 +43,16 @@ const Page: NextPageWithLayout = () => {
   return (
     <div>
       <HeadLayer />
-      <p>Bienvenue page HOME</p>
       <Link href={"/report/test"}>
         <button>Valider </button>
       </Link>
+
+      {allInventoryItems.map((item) => (
+        <div key={item.id} onClick={() => manageInventoryItems(item)}>
+          <span>{item.label}</span>
+          <span>{item.status.added.toString()}</span>
+        </div>
+      ))}
     </div>
   );
 };
@@ -34,14 +62,3 @@ Page.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default Page;
-
-// This function gets called at build time
-export async function getServerSideProps() {
-  // const datas = await fetchCarriers();
-
-  return {
-    props: {
-      // test,
-    },
-  };
-}

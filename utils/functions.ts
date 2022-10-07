@@ -38,7 +38,18 @@ const generateCarriersTable = (table: Carrier[]) =>
 const generateInventoryTable = (table: Inventory_Item[]) =>
   createHandableTable(table, createInventoryItemsObject);
 
-export { generateCarriersTable, generateInventoryTable };
+const reduceTotalWeight = (tableofValues: number[]): number => {
+  const initialValue = 0;
+  const sumWithInitial = tableofValues.reduce(
+    (previousValue: number, currentValue: number) =>
+      previousValue + currentValue,
+    initialValue
+  );
+
+  return sumWithInitial;
+};
+
+export { generateCarriersTable, generateInventoryTable, reduceTotalWeight };
 
 // !!!
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

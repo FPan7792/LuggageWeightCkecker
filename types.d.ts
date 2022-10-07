@@ -30,6 +30,29 @@ type Inventory_Item = {
   weight: number;
 };
 
+type Inventory_Store_States = {
+  allInventoryItems: Item_Mutable_Object[];
+  inventory: {
+    title: string;
+    totalItems: number;
+    items: Item_Mutable_Object[];
+  };
+  backPack: {
+    title: string;
+    totalItems: number;
+    totalWeight: number;
+    backPackItems: Item_Mutable_Object[];
+    status: { full: boolean };
+  };
+  isLoading: boolean;
+  keepContainersUpdated: () => void;
+  initializeInventoryStore: () => Promise<void>;
+  setupStore: (datas) => void;
+  manageInventoryItems: (item: Item_Mutable_Object) => void;
+  resetStore: () => void;
+  startLoading: () => void;
+  endLoading: () => void;
+};
 // api's
 type API_Response = {
   data: Datas_Carrier | Datas_Inventory;

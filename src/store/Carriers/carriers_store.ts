@@ -1,6 +1,7 @@
 import create from "zustand";
 import { generateCarriersTable } from "../../../utils/functions";
 import { initializeStore } from "./carriers_actions";
+import initialState from "./carrier_states";
 
 export interface Carrier_Mutable_Object extends Carrier {
   selected: boolean;
@@ -17,14 +18,6 @@ export interface Carrier_Store {
   initializeStore: () => Promise<void>;
   setSelectedCarrier: (item?: Carrier_Mutable_Object) => void;
 }
-
-const initialState: Carrier_Store_States = {
-  title: "Airplanes",
-  totalCount: 0,
-  allCarriers: [],
-  isLoading: false,
-  mutable: true,
-};
 
 const useCarrierStore = create<Carrier_Store>((set, get) => ({
   state: { ...initialState },
@@ -43,7 +36,10 @@ const useCarrierStore = create<Carrier_Store>((set, get) => ({
   setSelectedCarrier: (item) => {
     const { selectedCarrier, state } = get();
     !selectedCarrier || !item
-      ? set({ selectedCarrier: state.allCarriers[0] })
+      ? set({
+          selectedCarrier: state.allCarriers[0],
+          state: { ...state, title: state.allCarriers[0].label },
+        })
       : set({
           selectedCarrier: item,
           state: { ...state, title: item.label },
