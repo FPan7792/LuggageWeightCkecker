@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import type { NextPageWithLayout } from "./_app";
 
 import Layout from "../components/Layout/Layout";
@@ -11,32 +11,42 @@ import { BackPackBase } from "../components/BackPack";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import useInventoryStore from "../store/Inventory/inventory_store";
+import { LoadSpinnerBase } from "../components/ui/Loader";
 
 const Page: NextPageWithLayout = () => {
-  // CARRIER STATES
-  const { isLoading } = useCarrierStore().state;
+	// CARRIER STATES
+	const { isLoading } = useCarrierStore().state;
+	const { initializeStore } = useCarrierStore();
+	const { initializeInventoryStore } = useInventoryStore();
 
-  if (isLoading) {
-    // !!!Impl loader
-    return <p>LOADING</p>;
-  }
+	useEffect(() => {
+		const displayDatas = async () => {
+			await initializeStore();
+			await initializeInventoryStore();
+		};
+		displayDatas();
+	}, []);
 
-  return (
-    <div className="xl:flex justify-center border-solid border-2 border-red-900">
-      {/* <> */}
-      <HeadLayer />
-      <InventoryBase />
-      <div className="xl:px-10 flex justify-center items-center ">
-        <FontAwesomeIcon icon={faArrowRight} size="2x" />
-      </div>
-      <BackPackBase />
-      {/* </> */}
-    </div>
-  );
+	if (isLoading) {
+		// !!!Impl loader
+		return LoadSpinnerBase;
+	}
+
+	return (
+		<div className="xl:flex justify-center border-solid border-2 border-red-900">
+			<HeadLayer />
+			<InventoryBase />
+			<div className="xl:px-10 flex justify-center items-center ">
+				<FontAwesomeIcon icon={faArrowRight} size="2x" />
+			</div>
+			<BackPackBase />
+		</div>
+	);
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
+	return <Layout>{page}</Layout>;
 };
 
 export default Page;
