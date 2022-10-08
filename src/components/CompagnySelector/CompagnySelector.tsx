@@ -4,7 +4,7 @@ type Props = {};
 
 const CompagnySelector: React.FC<Props> = () => {
 	return (
-		<div className=" border-2 border-black border-solid ">
+		<div className=" border-[1px] border-solid h-full">
 			<DropDownMenuBase />
 		</div>
 	);
