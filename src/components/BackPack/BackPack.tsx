@@ -4,26 +4,22 @@ import { InventoryItem } from "../InventoryItem";
 import { convertGramsInKilos } from "../../../utils/functions";
 import useInventoryStore from "../../store/Inventory/inventory_store";
 import useCarrierStore from "../../store/Carriers/carriers_store";
+import Link from "next/link";
+import { BaseTab } from "../ui/BaseTab";
 
-const BackPack = ({ style }: { style: string }) => {
+const BackPack = ({ style }: { style?: string }) => {
+	// CARRIER STATES
 	const { selectedCarrier } = useCarrierStore();
 	const limit = useCarrierStore().selectedCarrier?.limit;
 
+	// BACKPACK STATES
 	const { backPack, manageInventoryItems } = useInventoryStore();
 	const { title, backPackItems, totalWeight } = backPack;
 
+	// LOCAL STATE
 	const [bpGauge, setBpGauge] = useState<"isEmpty" | "isMiddle" | "isFull">(
 		"isEmpty"
 	);
-	const emptyStyle =
-		"shadow rounded xl:flex xl:flex-col xl:justify-between xl:w-[20%] xl:min-w-[320px] xl:h-[500px]";
-
-	// PAGE REPORT ??
-	const [isReport, setIsReport] = useState(false);
-
-	useEffect(() => {
-		// IS REPORT ?
-	}, [selectedCarrier]);
 
 	useEffect(() => {
 		if (limit) {
@@ -35,20 +31,10 @@ const BackPack = ({ style }: { style: string }) => {
 		}
 	}, [backPack, selectedCarrier, limit]);
 
-	return (
-		<div
-			className={
-				bpGauge === "isEmpty"
-					? emptyStyle
-					: " shadow rounded xl:w-[20%] xl:min-w-[320px] h-full border-2 border-red-500 border-solid "
-			}
-		>
-			<h1 className="font-bold text-center text-xl border-b-2 border-b-solid py-3  ">
-				{isReport ? title : "Selected"}
-			</h1>
-
+	const content = (
+		<div className={style}>
 			{/* LIST */}
-			<div className="m-4">
+			<div className={bpGauge === "isEmpty" ? "h-[300px]" : "m-4"}>
 				{backPackItems.map((item) => (
 					<div key={item.id}>
 						<InventoryItem
@@ -78,21 +64,28 @@ const BackPack = ({ style }: { style: string }) => {
 
 				{/* VALIDATE BUTTON */}
 				<div className="flex justify-center items-start">
-					{bpGauge !== "isEmpty" && (
+					<Link
+						href={{
+							pathname: "/report/[mybackpack]",
+							query: { mybackpack: "mybackpack" },
+						}}
+					>
 						<button
-							disabled={bpGauge === "isFull"}
+							disabled={bpGauge !== "isMiddle"}
 							className={
-								(bpGauge === "isFull" ? "bg-slate-400" : "bg-black") +
-								" text-sm  w-full mx-2 my-5 p-3 text-white"
+								(bpGauge !== "isMiddle" && "opacity-50") +
+								" text-sm  w-full mx-2 my-5 p-3 text-white bg-black "
 							}
 						>
 							See Resume
 						</button>
-					)}
+					</Link>
 				</div>
 			</div>
 		</div>
 	);
+
+	return <BaseTab title={title} content={content} />;
 };
 
 export default BackPack;

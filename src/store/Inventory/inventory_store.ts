@@ -1,5 +1,6 @@
 import create from "zustand";
 import { generateInventoryTable } from "../../../utils/functions";
+import initialState from "./inventory_states";
 import {
 	allocateEachItemsIntoContainers,
 	initializeInventory,
@@ -41,8 +42,10 @@ const useInventoryStore = create<Inventory_Store_States>((set, get) => ({
 				items: finalDatas,
 				totalItems: finalDatas.length,
 			},
+			backPack: initialState.backPack,
 		});
 	},
+	setupBackPack: () => set({ backPack: initialState.backPack }),
 
 	manageInventoryItems: (item: Item_Mutable_Object) => {
 		const { allInventoryItems, keepContainersUpToDate } = get();

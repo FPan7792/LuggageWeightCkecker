@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from "react";
 import type { NextPageWithLayout } from "./_app";
 
-import Layout from "../components/Layout/Layout";
+import LayoutBase from "../components/Layout/LayoutBase";
 import HeadLayer from "../components/HeadLayer/HeadLayer";
 
 import useCarrierStore from "../store/Carriers/carriers_store";
@@ -13,28 +13,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import useInventoryStore from "../store/Inventory/inventory_store";
 import { LoadSpinnerBase } from "../components/ui/Loader";
+import useGlobalsStore from "../store/Globals/globals_store";
 
 const Page: NextPageWithLayout = () => {
 	// CARRIER STATES
 	const { isLoading } = useCarrierStore().state;
 	const { initializeStore } = useCarrierStore();
-	const { initializeInventoryStore } = useInventoryStore();
+	const { initializeInventoryStore, setupBackPack } = useInventoryStore();
+	const { setCurrentPage } = useGlobalsStore();
 
 	useEffect(() => {
 		const displayDatas = async () => {
+			setCurrentPage("Home");
 			await initializeStore();
+			await setupBackPack();
 			await initializeInventoryStore();
 		};
 		displayDatas();
 	}, []);
 
 	if (isLoading) {
-		// !!!Impl loader
 		return LoadSpinnerBase;
 	}
 
 	return (
-		<div className="xl:flex justify-center border-solid border-2 border-red-900">
+		<div className="xl:flex justify-center">
 			<HeadLayer />
 			<InventoryBase />
 			<div className="xl:px-10 flex justify-center items-center ">
@@ -46,7 +49,7 @@ const Page: NextPageWithLayout = () => {
 };
 
 Page.getLayout = function getLayout(page: ReactElement) {
-	return <Layout>{page}</Layout>;
+	return <LayoutBase>{page}</LayoutBase>;
 };
 
 export default Page;

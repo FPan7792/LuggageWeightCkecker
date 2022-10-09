@@ -48,10 +48,12 @@ type Inventory_Store_States = {
 	keepContainersUpToDate: () => void;
 	initializeInventoryStore: () => Promise<void>;
 	setupStore: (datas) => void;
+	setupBackPack: () => void;
 	manageInventoryItems: (item: Item_Mutable_Object) => void;
 	startLoading: () => void;
 	endLoading: () => void;
 };
+
 // api's
 type API_Response = {
 	data: Datas_Carrier | Datas_Inventory;
@@ -62,3 +64,10 @@ type API_Datas = Datas_Carrier | Datas_Inventory;
 
 // for styling components w/ tailwind Lib
 type TailwindCustomedStyle_Component = string | null;
+
+type Pages = "Home" | "Report";
+
+type Global_Store_State = {
+	currentPage: Pages;
+	setCurrentPage: (pageName: Pages) => void;
+};

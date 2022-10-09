@@ -8,22 +8,11 @@ const DropDown = ({
 	visible: boolean;
 	datas: Carrier_Store_States;
 }) => {
-	// !!WIP
-	//   datas for test setup
 	const { allCarriers, isLoading } = datas;
 	const { selectedCarrier, setSelectedCarrier } = useCarrierStore();
 
 	//   ON CLICK OUTSIDE CLOSE MENU DPD
-	//   useEffect(() => {
 
-	//     document.addEventListener("click",(e) => {
-
-	//     })
-
-	//     return () => {
-	//         // function remove addlistener
-	//     }
-	//   })
 	useEffect(() => {}, [selectedCarrier]);
 
 	return (
@@ -31,8 +20,8 @@ const DropDown = ({
 			className={
 				// !!MANAGE UI
 				visible
-					? "  w-72  border-[1px] border-solid absolute  transition ease-in duration-50  visible bg-white "
-					: "  w-72  border-[1px] border-solid absolute  transition ease-out duration-50 invisible"
+					? "w-72 border-[1px] border-solid absolute transition ease-in duration-50 visible bg-[#FFFFFF] "
+					: "w-72 border-[1px] border-solid absolute transition ease-out duration-50 invisible  bg-[#FFFFFF] "
 			}
 		>
 			{!isLoading &&

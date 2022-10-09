@@ -1,5 +1,6 @@
 import useInventoryStore from "../../store/Inventory/inventory_store";
 import { InventoryItem } from "../InventoryItem";
+import { BaseTab } from "../ui/BaseTab";
 
 type Props = { style: string; Loader: JSX.Element };
 
@@ -8,16 +9,13 @@ const Inventory = ({ style, Loader }: Props) => {
 	const { inventory, manageInventoryItems } = useInventoryStore();
 
 	const isLoadingInventory = useInventoryStore().isLoading;
-	const { items } = inventory;
+	const { items, totalItems, title } = inventory;
 
-	return (
-		<div className=" shadow rounded xl:w-[20%] xl:min-w-[320px] h-full ">
-			<h1 className="font-bold text-center text-xl border-b-2 border-b-solid py-3  ">
-				{inventory.title}
-			</h1>
+	const content = (
+		<div className={style}>
 			{isLoadingInventory ? (
 				<div className=" xl:h-[400px] ">{Loader}</div>
-			) : (
+			) : totalItems > 0 ? (
 				<div className="m-4">
 					{items.map((item) => (
 						<div key={item.id}>
@@ -30,9 +28,13 @@ const Inventory = ({ style, Loader }: Props) => {
 						</div>
 					))}
 				</div>
+			) : (
+				<p className="p-4 opacity-50 ">No item available...</p>
 			)}
 		</div>
 	);
+
+	return <BaseTab title={title} content={content} />;
 };
 
 export default Inventory;

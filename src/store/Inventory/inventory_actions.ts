@@ -68,10 +68,10 @@ const shiftItems = (
 				(elem) => elem.id === stuff.id && elem.label === stuff.label
 			);
 
-			if (find) {
+			if (find !== -1) {
 				newAllItems.splice(find, 1, newStuff);
 				set({ allInventoryItems: newAllItems });
-			}
+			} else console.log("non trouvé", find);
 		}
 	}
 };

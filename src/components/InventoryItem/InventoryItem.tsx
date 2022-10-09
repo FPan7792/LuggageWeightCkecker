@@ -29,7 +29,7 @@ export const InventoryItem = ({
 			key={item.id}
 			onClick={() => manageInventoryItems(item)}
 		>
-			<strong className="text-base">{item.label}</strong>
+			<strong className="text-base capitalize">{item.label}</strong>
 
 			<div className="flex justify-end flex-1">
 				<span className="absolute group-hover:invisible">
@@ -48,7 +48,7 @@ export const InventoryItem = ({
 						</span>
 					)}
 
-					{text}
+					<span>{text}</span>
 
 					{intoComponent === "INVENTORY" && (
 						<span className="px-1">
