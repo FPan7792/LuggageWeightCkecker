@@ -11,8 +11,6 @@ const DropDown = ({
 	const { allCarriers, isLoading } = datas;
 	const { selectedCarrier, setSelectedCarrier } = useCarrierStore();
 
-	//   ON CLICK OUTSIDE CLOSE MENU DPD
-
 	useEffect(() => {}, [selectedCarrier]);
 
 	return (

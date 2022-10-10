@@ -2,9 +2,12 @@ import { URLS } from "./urls/urls";
 import { buildURLS } from "./urls/url_utils";
 import { fetchDatasFromAPI } from "./requests";
 
+/**
+ * Basic request.
+ */
 const getDatas = async (url: string) => {
-  const builtUrl = buildURLS(url);
-  return fetchDatasFromAPI(builtUrl);
+	const builtUrl = buildURLS(url);
+	return fetchDatasFromAPI(builtUrl);
 };
 
 const fetchCarriers = () => getDatas(URLS.carriers_url);

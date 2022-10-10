@@ -24,7 +24,7 @@ export const InventoryItem = ({
 		intoComponent === "INVENTORY" ? faArrowRightLong : faArrowLeftLong;
 
 	return (
-		<div
+		<li
 			className="group flex justify-between py-1 cursor-pointer "
 			key={item.id}
 			onClick={() => manageInventoryItems(item)}
@@ -57,7 +57,7 @@ export const InventoryItem = ({
 					)}
 				</span>
 			</div>
-		</div>
+		</li>
 	);
 };
 export default InventoryItem;

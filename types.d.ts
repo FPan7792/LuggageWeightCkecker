@@ -65,6 +65,7 @@ type API_Datas = Datas_Carrier | Datas_Inventory;
 // for styling components w/ tailwind Lib
 type TailwindCustomedStyle_Component = string | null;
 
+// globals
 type Pages = "Home" | "Report";
 
 type Global_Store_State = {

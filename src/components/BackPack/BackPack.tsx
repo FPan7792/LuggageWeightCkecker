@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { InventoryItem } from "../InventoryItem";
+import Link from "next/link";
 
 import { convertGramsInKilos } from "../../../utils/functions";
 import useInventoryStore from "../../store/Inventory/inventory_store";
 import useCarrierStore from "../../store/Carriers/carriers_store";
-import Link from "next/link";
+
 import { BaseTab } from "../ui/BaseTab";
+import { InventoryItem } from "../InventoryItem";
 
 const BackPack = ({ style }: { style?: string }) => {
 	// CARRIER STATES
@@ -14,7 +15,7 @@ const BackPack = ({ style }: { style?: string }) => {
 
 	// BACKPACK STATES
 	const { backPack, manageInventoryItems } = useInventoryStore();
-	const { title, backPackItems, totalWeight } = backPack;
+	const { backPackItems, totalWeight } = backPack;
 
 	// LOCAL STATE
 	const [bpGauge, setBpGauge] = useState<"isEmpty" | "isMiddle" | "isFull">(
@@ -36,14 +37,14 @@ const BackPack = ({ style }: { style?: string }) => {
 			{/* LIST */}
 			<div className={bpGauge === "isEmpty" ? "h-[300px]" : "m-4"}>
 				{backPackItems.map((item) => (
-					<div key={item.id}>
+					<ul key={item.id}>
 						<InventoryItem
 							item={item}
 							manageInventoryItems={manageInventoryItems}
 							intoComponent={"BACKPACK"}
 							text={"Remove"}
 						/>
-					</div>
+					</ul>
 				))}
 			</div>
 
@@ -85,7 +86,7 @@ const BackPack = ({ style }: { style?: string }) => {
 		</div>
 	);
 
-	return <BaseTab title={title} content={content} />;
+	return <BaseTab title={"Selected"} content={content} />;
 };
 
 export default BackPack;

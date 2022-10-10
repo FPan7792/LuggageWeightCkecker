@@ -18,7 +18,9 @@ const createInventoryItemsObject = (item: Inventory_Item) => {
 	};
 };
 
-// return global exploitable state from any datas
+/**
+ *  return global exploitable state from any datas
+ */
 const createHandableTable = (
 	tableOfBrutDatas: Carrier[] | Inventory_Item[],
 	callBack: Function
@@ -38,6 +40,9 @@ const generateCarriersTable = (table: Carrier[]) =>
 const generateInventoryTable = (table: Inventory_Item[]) =>
 	createHandableTable(table, createInventoryItemsObject);
 
+/**
+ * Calculates total weight.
+ */
 const reduceTotalWeight = (tableofValues: number[]): number => {
 	const initialValue = 0;
 	const sumWithInitial = tableofValues.reduce(
@@ -49,6 +54,9 @@ const reduceTotalWeight = (tableofValues: number[]): number => {
 	return sumWithInitial;
 };
 
+/**
+ * Gets all values from table .
+ */
 const getWeights = (tab: Item_Mutable_Object[]) => {
 	const table = [];
 	for (const elem of tab) {

@@ -1,5 +1,18 @@
-// !!!
+import Link from "next/link";
 export const NotFound = () => {
-  return <p>Page non trouvée, désolé</p>;
+	return (
+		<div className="h-screen flex justify-center items-center flex-col  ">
+			<h1 className="  text-2xl  ">Page non trouvée, désolé =(</h1>
+			<Link href={"/"}>
+				<div>
+					<p className="mt-10 underline font-bold cursor-pointer ">
+						Retourner vers l'application
+						{"  "}
+						<span>👈</span>
+					</p>
+				</div>
+			</Link>
+		</div>
+	);
 };
 export default NotFound;

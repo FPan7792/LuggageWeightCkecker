@@ -18,14 +18,14 @@ const Inventory = ({ style, Loader }: Props) => {
 			) : totalItems > 0 ? (
 				<div className="m-4">
 					{items.map((item) => (
-						<div key={item.id}>
+						<ul key={item.id}>
 							<InventoryItem
 								item={item}
 								manageInventoryItems={manageInventoryItems}
 								intoComponent={"INVENTORY"}
 								text={"Add"}
 							/>
-						</div>
+						</ul>
 					))}
 				</div>
 			) : (

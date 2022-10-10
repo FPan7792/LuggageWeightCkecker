@@ -1,16 +1,18 @@
-import { ReactElement } from "react";
-import LayoutBase from "../../components/Layout/LayoutBase";
-import type { NextPageWithLayout } from "../_app";
-import HeadLayer from "../../components/HeadLayer/HeadLayer";
+import { ReactElement, useLayoutEffect } from "react";
 import Link from "next/link";
+import type { NextPageWithLayout } from "../_app";
+
+import HeadLayer from "../../components/HeadLayer/HeadLayer";
+import LayoutBase from "../../components/Layout/LayoutBase";
+import BaseTab from "../../components/ui/BaseTab/BaseTab";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import BaseTab from "../../components/ui/BaseTab/BaseTab";
+
 import useInventoryStore from "../../store/Inventory/inventory_store";
-import { convertGramsInKilos } from "../../../utils/functions";
 import useGlobalsStore from "../../store/Globals/globals_store";
-import { useLayoutEffect } from "react";
+
+import { convertGramsInKilos } from "../../../utils/functions";
 
 const Page: NextPageWithLayout = () => {
 	const { totalWeight, backPackItems } = useInventoryStore().backPack;
@@ -48,8 +50,7 @@ const Page: NextPageWithLayout = () => {
 	);
 
 	return (
-		<div className="flex justify-center items-center flex-col ">
-			{/* !!!set title and props */}
+		<div className="flex justify-center items-center flex-col">
 			<HeadLayer title="Airlines Carriers - MY BACKPACK" />
 			<BaseTab title="MyBackPack" content={content} />
 			<>

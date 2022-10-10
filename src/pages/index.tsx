@@ -3,17 +3,17 @@ import type { NextPageWithLayout } from "./_app";
 
 import LayoutBase from "../components/Layout/LayoutBase";
 import HeadLayer from "../components/HeadLayer/HeadLayer";
-
-import useCarrierStore from "../store/Carriers/carriers_store";
+import { LoadSpinnerBase } from "../components/ui/Loader";
 
 import { InventoryBase } from "../components/Inventory";
 import { BackPackBase } from "../components/BackPack";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import useCarrierStore from "../store/Carriers/carriers_store";
 import useInventoryStore from "../store/Inventory/inventory_store";
-import { LoadSpinnerBase } from "../components/ui/Loader";
 import useGlobalsStore from "../store/Globals/globals_store";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 const Page: NextPageWithLayout = () => {
 	// CARRIER STATES
@@ -37,17 +37,23 @@ const Page: NextPageWithLayout = () => {
 	}
 
 	return (
-		<div className="xl:flex justify-center">
+		<div className=" xl:pb-10 flex-wrap flex justify-center flex-col items-center xl:items-start xl:flex-row xl:w-full my-0 mx-auto ">
 			<HeadLayer />
+
 			<InventoryBase />
-			<div className="xl:px-10 flex justify-center items-center ">
-				<FontAwesomeIcon icon={faArrowRight} size="2x" />
+
+			<div className=" py-5 xl:px-10 flex justify-center items-center my-auto mx-0 ">
+				<p className="xl:-rotate-90">
+					<FontAwesomeIcon icon={faArrowDown} size="2x" />
+				</p>
 			</div>
+
 			<BackPackBase />
 		</div>
 	);
 };
 
+// use layer over every pages w/ this func
 Page.getLayout = function getLayout(page: ReactElement) {
 	return <LayoutBase>{page}</LayoutBase>;
 };
