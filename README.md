@@ -1,6 +1,6 @@
 # Airlines Carrier Tech
 
-To run the project :
+## To run the project :
 
 First get a key api from : https://the-offline-bp-back.herokuapp.com/get-carriers
 
@@ -13,6 +13,11 @@ NEXT_PUBLIC_API_KEY=apiKeyYouJustGet
 ```
 
 and run :
+
+```bash
+npm install
+```
+then
 
 ```bash
 yarn run dev
