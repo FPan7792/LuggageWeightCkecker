@@ -6,8 +6,7 @@ export const NotFound = () => {
 			<Link href={"/"}>
 				<div>
 					<p className="mt-10 underline font-bold cursor-pointer ">
-						Retourner vers l'application
-						{"  "}
+						Retourner vers l&apos;application{"  "}
 						<span>👈</span>
 					</p>
 				</div>
